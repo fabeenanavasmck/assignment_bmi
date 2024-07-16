@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .container{
+            width:255px ;
+            margin: auto;
+            padding: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 355px;
+            border-radius: 30px;
+            border: 2px solid brown;
+            box-shadow: 2px 4px 6px 8px black;
+            margin-top: 30px;
+            background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity))
+        }
+        h1{
+            text-align: center;
+            font-size: 1.7em;
+            font-weight:500;
+            margin-bottom: -13px;
+            margin-top: -12px;
+        }
+        .Gender{
+            font-size:1em;
+            font-weight: 550;
+           
+
+        }
+        .weight{
+            font-size:0.8em;
+            font-weight: 400;
+           
+           
+        }
+        .height{
+            font-size:0.8em;
+            font-weight: 400;
+            
+        }
+        #RESET{
+            background-color:green ;
+            padding: 10px;
+            width: 45%;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+        }
+        #CALCULATE{
+            background-color:#eb9d58 ;
+            padding: 10px;
+            width: 45%;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+        }
+        .result{
+            text-align: center;
+            font-weight: 500;
+        }
+        .row{
+            margin: 5px;
+        }
+        
+      
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 >BMI Calculator</h1><br>
+    <div class="row">
+        <label class="Gender" >Gender:</label>
+        <input  id="gender_male" name="Gender" value="male" checked type="radio" />
+        <i  class="fa-solid fa-person"></i> 
+        <input id="gender_female" name="Gender" value="female" type="radio" />
+        <i class="fa-solid fa-person-dress"></i><br>
+    </div>
+    <div class="row">
+        <label class="weight">Weight(kg)</label>
+        <input id="Weight" type="number"style="padding: 7px;width:157px; border: 1px solid #ccc;" onkeyup="setNumber(this)" value="0" /><br>
+    </div>
+    <div class="row">
+        <label class="height">Height(cm)</label>
+        <input id="Height" type="number" style="padding: 6px;width:157px;margin-top: 10px;border: 1px solid #ccc;;" onkeyup="setNumber(this)" value="0" /><br>
+    </div>
+        <button id="RESET" onclick="RESET()">RESET</button>
+        <button id="CALCULATE" onclick="CALCULATE()">CALCULATE</button>
+        <h2 class="result">Your BMI is<br> <span style=" font-size: 1.7em;" id="bmi">0</span><br> <span id="message"></span></h2>
+    </div>
+    <script>
+        function RESET(){
+          document.getElementById("Weight").value="0";
+          document.getElementById("Height").value="0";
+          document.getElementById("gender_male").checked = true;
+        }
+        function setNumber(source){
+          source.value=parseFloat(source.value);
+        }
+
+        function CALCULATE(){
+          //weight in kG
+          var w = parseFloat(document.getElementById("Weight").value);
+          //Height in centemeter
+          var h = parseFloat(document.getElementById("Height").value);
+          //Height in meter
+          h = h /100;
+          // BMI = Weight in KG / (Height in metr Square)
+          var bmi = w/(h*h);
+          var bmi_rounded = bmi.toFixed(2);
+          console.log(w,h,bmi, bmi_rounded);
+          document.getElementById("bmi").innerHTML = bmi_rounded;
+          const msg = document.getElementById("message");
+
+            if (bmi_rounded < 18.5) {
+                msg.innerHTML = `Underweight`;
+            } else if (bmi_rounded >= 18.5 && bmi_rounded < 25) {
+                msg.innerHTML = `Normal weight`; // Normal weight
+            } else if (bmi_rounded >= 25 && bmi_rounded < 30) {
+                msg.innerHTML = `Overweight`; // Overweight
+            } else {
+                msg.innerHTML = `Obese`; // Obese
+            }
+        }
+    </script>
+</body>
+</html>
